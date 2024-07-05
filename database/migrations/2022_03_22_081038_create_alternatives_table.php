@@ -17,6 +17,7 @@ return new class extends Migration
       $table->id();
       $table->foreignId('criteria_id')->constrained()->cascadeOnDelete();
       $table->foreignId('tourism_object_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('user_id')->constrained()->cascadeOnDelete();
       $table->decimal('alternative_value', 10, 1);
       $table->timestamps();
     });

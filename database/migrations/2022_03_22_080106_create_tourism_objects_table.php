@@ -15,8 +15,8 @@ return new class extends Migration
   {
     Schema::create('tourism_objects', function (Blueprint $table) {
       $table->id();
-      $table->string('name')->unique();
-      $table->string('address')->unique();
+      $table->string('name');
+      $table->string('address')->nullable();
       $table->timestamps();
     });
   }

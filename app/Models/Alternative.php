@@ -52,11 +52,20 @@ class Alternative extends Model
     return $dividers;
   }
 
-  public static function getAlternativesByCriteria($criterias)
+  public static function getAlternativesByCriteria($criterias, $users)
   {
-    $results = static::with('criteria', 'tourismObject')
-      ->whereIn('criteria_id', $criterias)
-      ->get();
+    if(isset($users)){
+      
+      $results = static::with('criteria', 'tourismObject')
+        ->whereIn('criteria_id', $criterias)
+        ->where('user_id', $users)
+        ->get();
+
+    }else{
+        $results = static::with('criteria', 'tourismObject')
+        ->whereIn('criteria_id', $criterias)
+        ->get();
+    }
 
     if (!$results->count()) {
       return $results;

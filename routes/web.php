@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
   Route::get('dashboard/profile', [DashboardProfileController::class, 'index']);
   Route::put('dashboard/profile/{user}', [DashboardProfileController::class, 'update']);
+  Route::post('dashboard/profile', [DashboardProfileController::class, 'updateProfile']);
 
   Route::get('dashboard/criteria-comparisons', [DashboardCriteriaComparisonController::class, 'index']);
   Route::post('dashboard/criteria-comparisons', [DashboardCriteriaComparisonController::class, 'store']);

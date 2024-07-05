@@ -47,31 +47,19 @@
                   <select class="form-select" name="comparison_values[]" required>
                     <option value="" disabled selected>--Choose Value--</option>
                     <option value="1" {{ $detail->comparison_value == 1 ? 'selected' : '' }}>
-                      1 - Equally Important
+                      1 - Sama Penting Dengan
                     </option>
                     <option value="2" {{ $detail->comparison_value == 2 ? 'selected' : '' }}>
-                      2 - Equally Important / A Little More Important
+                      2 - Sedikit Lebih Penting Dari
                     </option>
                     <option value="3" {{ $detail->comparison_value == 3 ? 'selected' : '' }}>
-                      3 - A Little More Important
+                      3 - Lebih Penting Dari
                     </option>
                     <option value="4" {{ $detail->comparison_value == 4 ? 'selected' : '' }}>
-                      4 - Equally Important / Obviously More Important
+                      4 - Mendekati Sangat Penting Dari
                     </option>
                     <option value="5" {{ $detail->comparison_value == 5 ? 'selected' : '' }}>
-                      5 - Obviously More Important
-                    </option>
-                    <option value="6" {{ $detail->comparison_value == 6 ? 'selected' : '' }}>
-                      6 - Obviously More Important / Very Clearly Important
-                    </option>
-                    <option value="7" {{ $detail->comparison_value == 7 ? 'selected' : '' }}>
-                      7 - Very Clearly Important
-                    </option>
-                    <option value="8" {{ $detail->comparison_value == 8 ? 'selected' : '' }}>
-                      8 - Very Clearly Important / Absolutely More Important
-                    </option>
-                    <option value="9" {{ $detail->comparison_value == 9 ? 'selected' : '' }}>
-                      9 - Absolutely More Important
+                      5 - Sangat Penting Dari
                     </option>
                   </select>
                 </td>

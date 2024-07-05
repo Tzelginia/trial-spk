@@ -31,6 +31,7 @@ class AuthController extends Controller
 
   public function store(AuthSignUpRequest $request)
   {
+    // dd($request);
     $validate = $request->validated();
 
     $validate['password'] = Hash::make($validate['password']);

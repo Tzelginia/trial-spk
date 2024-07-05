@@ -41,14 +41,21 @@ class DashboardRankController extends Controller
   {
     $criteriaAnalysis->load('preventiveValues');
 
+
+
     $criterias      = CriteriaAnalysisDetail::getSelectedCriterias($criteriaAnalysis->id);
     $criteriaIds    = $criterias->pluck('id');
-    $alternatives   = Alternative::getAlternativesByCriteria($criteriaIds);
     $dividers       = Alternative::getDividerByCriteria($criterias);
+
+    if(auth()->user()->level === 'USER'){
+      $users = auth()->user()->id;
+      $alternatives   = Alternative::getAlternativesByCriteria($criteriaIds, $users);
+    }else{
+      $alternatives   = Alternative::getAlternativesByCriteria($criteriaIds, null);
+    }
 
     $normalizations = $this->_countNormalization($dividers, $alternatives);
     $ranking        = $this->_finalRanking($criteriaAnalysis->preventiveValues, $normalizations);
-
     return view('dashboard.final-rank.rank', [
       'title'        => 'Final Ranking',
       'dividers'     => $dividers,

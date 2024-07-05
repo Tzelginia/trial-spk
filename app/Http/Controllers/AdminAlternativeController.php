@@ -36,22 +36,62 @@ class AdminAlternativeController extends Controller
     ]);
   }
 
-  public function store(AlternativeStoreRequest $request)
+  public function store(Request $request)
   {
-    $validate = $request->validated();
+    // dd($request);
+    // $validate = $request->validated();
 
-    foreach ($validate['criteria_id'] as $key => $criteriaId) {
-      $data = [
-        'tourism_object_id' => $validate['tourism_object_id'],
-        'criteria_id'       => $criteriaId,
-        'alternative_value' => $validate['alternative_value'][$key],
-      ];
+    // foreach ($validate['criteria_id'] as $key => $criteriaId) {
+    //   $data = [
+    //     'tourism_object_id' => $validate['tourism_object_id'],
+    //     'criteria_id'       => $criteriaId,
+    //     'alternative_value' => $validate['alternative_value'][$key],
+    //   ];
 
-      Alternative::create($data);
+    //   Alternative::create($data);
+    // }
+    $alternatives = TourismObject::get();
+    $user_id = auth()->user()->id;
+    $id_biaya = Criteria::where('name', 'Biaya')->first()->id;
+    $id_ipk = Criteria::where('name', 'IPK')->first()->id;
+    $id_minat = Criteria::where('name', 'Minat')->first()->id;
+    $id_kesiapan = Criteria::where('name', 'Kesiapan')->first()->id;
+    $id_keahlian = Criteria::where('name', 'Keahlian')->first()->id;
+    
+    if($request->first_kesiapan){
+      foreach($alternatives as $alternative){
+        $alternatives_value = new Alternative;
+        $alternatives_value->criteria_id = $id_kesiapan;
+        $alternatives_value->tourism_object_id = $alternative->id;
+        $alternatives_value->user_id = $user_id;
+        if($request->first_kesiapan == "3"){
+          $alternatives_value->alternative_value = $request->first_kesiapan;
+        }else{
+          if($alternative->name == "Studi Independent"){
+            $alternatives_value->alternative_value = 6 - $request->first_kesiapan;
+          }else{
+            $alternatives_value->alternative_value = $request->first_kesiapan;
+          }
+        }
+        $alternatives_value->save();
+       }
     }
 
-    return redirect('/dashboard/alternatives')
-      ->with('success', 'The New Alternative has been added!');
+    if($request->second_kesiapan){
+       foreach($alternatives as $alternative){
+        $alternatives_value = Alternative::where('criteria_id', $id_kesiapan)
+        ->where('tourism_object_id')
+        ->where('user_id', $user_id)->first();
+        if($request->second_kesiapan == "3"){
+          $alternatives_value->alternative_value = $alternatives_value->alternative_value + 1; 
+        }elseif($request->second_kesiapan == "3"){
+          
+        }
+       }
+    }
+
+    return redirect('/dashboard/questioner')
+      ->with('success', 'Berhasil hore');
   }
 
   public function edit(Alternative $alternative)

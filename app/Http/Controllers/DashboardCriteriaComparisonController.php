@@ -31,23 +31,36 @@ class DashboardCriteriaComparisonController extends Controller
     ]);
   }
 
-  public function store(Request $request)
-  {
-    if (!isset($request->criteria_id)) {
+  public function store(Request $request){ 
+     $analysis = CriteriaAnalysis::where('user_id', auth()->user()->id)->first();
+    // dd($find);
+    if($request->decision == null){
+
       return redirect('/dashboard/criteria-comparisons')
-        ->with('failed', 'Please check your selected criterias!');
+      ->with('failed', 'Silahkan pilih terlebih dahulu');
+    }{
+      if($request->decision == "yes"){
+        $decisionCrit = ["1", "2", "3", "4", "5"];
+      }elseif($request->decision == "no"){
+        $decisionCrit = ["2", "3", "4", "5"];
+      }
     }
-
-    $validate = $request->validate([
-      'criteria_id' => 'required|array'
-    ]);
-
+    
+    $validate = [
+      'criteria_id' => $decisionCrit,
+    ];
+    
     // data for criteria analyses table
     $analysisData = [
       'user_id' => auth()->user()->id
     ];
 
-    $analysis = CriteriaAnalysis::create($analysisData);
+    if($analysis == null){
+      $analysis = CriteriaAnalysis::create($analysisData);
+    }{
+      // dd($analysis->details()->get());
+      $analysis->details()->delete();
+    }
 
     $analysisId = $analysis->id;
     $comparisonIds = [];
@@ -298,6 +311,8 @@ class DashboardCriteriaComparisonController extends Controller
   {
     $this->authorize('delete', $criteriaAnalysis);
 
+    $criteriaAnalysis = CriteriaAnalysis::findOrFail($criteriaAnalysis->id);
+    $criteriaAnalysis->details()->delete();
     CriteriaAnalysis::destroy($criteriaAnalysis->id);
 
     return redirect('/dashboard/criteria-comparisons')

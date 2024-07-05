@@ -46,4 +46,22 @@ class DashboardProfileController extends Controller
     return redirect('/dashboard/profile')
       ->with('success', "Your profile has been updated!");
   }
+
+  public function updateProfile(Request $request){
+
+    // dd($request);
+    $user =  User::where('id', auth()->user()->id)->first();
+    // dd(auth()->user()->id);
+     if ($request->get('semester')) {
+            $user->semester = $request->get('semester');
+            $user->save();
+        }
+     if ($request->get('ipk')) {
+            $user->IPK = $request->get('ipk');
+            $user->save();
+        }
+
+    return redirect('/dashboard/questioner')
+      ->with('success', "Formulir berhasil diisi");
+  }
 }

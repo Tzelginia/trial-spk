@@ -49,7 +49,7 @@
         @enderror
       </div>
 
-      <div class="my-2">
+      {{-- <div class="my-2">
         {!! NoCaptcha::renderJs() !!}
         {!! NoCaptcha::display() !!}
 
@@ -58,7 +58,7 @@
             <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
           </span>
         @enderror
-      </div>
+      </div> --}}
 
       <div class="mb-2 @error('password') mt-4 @enderror">
         Already have an account? 

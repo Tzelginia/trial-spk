@@ -46,7 +46,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/tourism-objects*') ? 'active' : '' }}" href="/dashboard/tourism-objects">
             <span data-feather="camera"></span>
-            Tourism Objects
+            Alternatives
           </a>
         </li>
         <li class="nav-item">
@@ -58,7 +58,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/alternatives*') ? 'active' : '' }}" href="/dashboard/alternatives">
             <span data-feather="briefcase"></span>
-            Alternatives
+            Alternatives Results
           </a>
         </li>
 

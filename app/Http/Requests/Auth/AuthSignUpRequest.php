@@ -28,7 +28,6 @@ class AuthSignUpRequest extends FormRequest
       'username'             => 'required|unique:users|min:6|max:15',
       'email'                => 'required|unique:users|email:dns',
       'password'             => 'required|min:6',
-      'g-recaptcha-response' => 'required|captcha'
     ];
   }
 }
